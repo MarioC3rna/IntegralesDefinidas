@@ -29,7 +29,7 @@ public class Main {
         System.out.println("Introduce el límite superior de integración:");
         double b = scanner.nextDouble();
 
-        // Convertir la cadena de la función a una Function<Double, Double>
+        // Convertir la cadena en un tipi Double
         Function<Double, Double> funcion = x -> {
             Expression e = new ExpressionBuilder(funcionStr)
                     .variable("x")
@@ -38,13 +38,15 @@ public class Main {
             return e.evaluate();
         };
 
+
+        // Crear una instancia de la clase BaseLogica
         BaseLogica calculadora = new BaseLogica();
         double resultado = calculadora.integrar(funcion, a, b);
 
         // Redondear el resultado a 3 dígitos decimales
         System.out.printf("Resultado de la integral: %.3f%n", resultado);
 
-        // Crear la serie de datos para la función
+        // Crear la serie de datos para la función y sus valores en el intervalo [a, b]
         XYSeries series = new XYSeries("Función");
         for (double x = a; x <= b; x += (b - a) / 1000) {
             series.add(x, funcion.apply(x));

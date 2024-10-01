@@ -4,6 +4,8 @@ import java.util.function.Function;
 
 public class BaseLogica {
 
+
+    // Método para integrar una función en un intervalo dado [a, b]
     public double integrar(Function<Double, Double> funcion, double a, double b){
 
         double h = (b - a) / 1000;
