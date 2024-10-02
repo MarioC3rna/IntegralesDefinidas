@@ -1,19 +1,23 @@
 package umg.dem1.BaseIntegrales;
 
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class BaseLogica {
 
+    // Método para integrar una función en un intervalo dado [a, b] y [c, d]
+    public double integrar(BiFunction<Double, Double, Double> funcion, double a, double b, double c, double d) {
+        int n = 1000; // Número de subdivisiones
+        double hx = (b - a) / n;
+        double hy = (d - c) / n;
+        double suma = 0.0;
 
-    // Método para integrar una función en un intervalo dado [a, b]
-    public double integrar(Function<Double, Double> funcion, double a, double b){
-
-        double h = (b - a) / 1000;
-        double suma = 0.5 * (funcion.apply(a) + funcion.apply(b));
-        for (int i = 1; i < 1000; i++) {
-            double x = a + i * h;
-            suma += funcion.apply(x);
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= n; j++) {
+                double x = a + i * hx;
+                double y = c + j * hy;
+                suma += funcion.apply(x, y);
+            }
         }
-        return suma * h;
+        return suma * hx * hy;
     }
 }
